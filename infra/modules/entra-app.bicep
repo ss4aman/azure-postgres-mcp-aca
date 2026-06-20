@@ -54,6 +54,12 @@ resource entraAppUpdate 'Microsoft.Graph/applications@v1.0' = {
   serviceManagementReference: orgServiceManagementReferenceId
   appRoles: entraApp.appRoles
   identifierUris: ['api://${entraApp.appId}']
+  // Issue v2.0 access tokens (issuer https://login.microsoftonline.com/{tenant}/v2.0).
+  // The Azure MCP server validates tokens against the v2.0 authorization server it
+  // advertises, so v1 tokens (the default when this is unset) are rejected with 401.
+  api: {
+    requestedAccessTokenVersion: 2
+  }
 }
 
 resource entraServicePrincipal 'Microsoft.Graph/servicePrincipals@v1.0' = {

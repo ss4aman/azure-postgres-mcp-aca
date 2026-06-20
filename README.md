@@ -100,7 +100,8 @@ The summary gives you the exact commands with your container app's identity name
 1. Click **Connect tool with endpoint** and enter the values from the printed summary:
    - **Remote MCP Server endpoint** → `CONTAINER_APP_URL`
    - **Authentication** → **Microsoft Entra** → **Project Managed Identity**
-   - **Audience** → `ENTRA_APP_CLIENT_ID`
+   - **Audience** → `ENTRA_APP_IDENTIFIER_URI` (the `api://<client-id>` form, **not** the bare `ENTRA_APP_CLIENT_ID`).
+     > The project managed identity uses this value verbatim as the token resource, and managed-identity tokens are v1 tokens. A v1 token is only valid when its audience is the `api://` App ID URI, so using the bare client ID fails authentication with `401` / `IDX10214: Audience validation failed`.
    ![Connect via Entra](images/ai-foundry-postgres-tool-catalog.png)
 1. **Save**.
 1. Paste the agent instructions from the printed summary (server / resource-group / subscription / user are pre-filled; you fill in `<DATABASE_NAME>` and `<TABLE_NAME>`):

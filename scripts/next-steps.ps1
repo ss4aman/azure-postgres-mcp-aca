@@ -8,7 +8,7 @@ function Get-Val($name) { [Environment]::GetEnvironmentVariable($name) }
 
 $containerAppUrl   = Get-Val 'CONTAINER_APP_URL'
 $identityName      = Get-Val 'CONTAINER_APP_IDENTITY_NAME'
-$entraClientId     = Get-Val 'ENTRA_APP_CLIENT_ID'
+$entraAudience     = Get-Val 'ENTRA_APP_IDENTIFIER_URI'
 $subscriptionId    = Get-Val 'AZURE_SUBSCRIPTION_ID'
 $postgresId        = Get-Val 'POSTGRES_RESOURCE_ID'
 
@@ -45,7 +45,8 @@ Write-Host '  then "Connect tool with endpoint" and paste these values:'
 Write-Host ''
 Write-Host "    Remote MCP Server endpoint : $containerAppUrl" -ForegroundColor Green
 Write-Host '    Authentication             : Microsoft Entra -> Project Managed Identity'
-Write-Host "    Audience                   : $entraClientId" -ForegroundColor Green
+Write-Host "    Audience                   : $entraAudience" -ForegroundColor Green
+Write-Host '    (use the api:// App ID URI above, NOT the bare client id)' -ForegroundColor DarkGray
 Write-Host ''
 Write-Host '  Then paste these agent instructions (fill in <DATABASE_NAME> / <TABLE_NAME>):' -ForegroundColor Yellow
 Write-Host ''

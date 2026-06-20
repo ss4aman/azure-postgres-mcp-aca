@@ -4,7 +4,7 @@
 
 container_app_url="${CONTAINER_APP_URL:-}"
 identity_name="${CONTAINER_APP_IDENTITY_NAME:-}"
-entra_client_id="${ENTRA_APP_CLIENT_ID:-}"
+entra_audience="${ENTRA_APP_IDENTIFIER_URI:-}"
 subscription_id="${AZURE_SUBSCRIPTION_ID:-}"
 postgres_id="${POSTGRES_RESOURCE_ID:-}"
 
@@ -40,7 +40,8 @@ echo "  then \"Connect tool with endpoint\" and paste these values:"
 echo ""
 echo "    Remote MCP Server endpoint : $container_app_url"
 echo "    Authentication             : Microsoft Entra -> Project Managed Identity"
-echo "    Audience                   : $entra_client_id"
+echo "    Audience                   : $entra_audience"
+echo "    (use the api:// App ID URI above, NOT the bare client id)"
 echo ""
 echo "  Then paste these agent instructions (fill in <DATABASE_NAME> / <TABLE_NAME>):"
 echo ""

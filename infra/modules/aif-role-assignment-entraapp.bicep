@@ -14,12 +14,16 @@ param entraAppRoleId string
 
 // Expected format: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CognitiveServices/accounts/{accountName}/projects/{projectName}
 var resourceIdParts = split(aifProjectResourceId, '/')
+var aifSubscriptionId = resourceIdParts[2]
 var projectResourceGroup = resourceIdParts[4]
 var accountName = resourceIdParts[8]
 var projectName = resourceIdParts[10]
 
+// Reference the AI Foundry project in its own subscription + resource group.
+// Including the subscription ID enables cross-subscription lookup (the Foundry
+// project can live in a different subscription than the Container Apps).
 resource aifProject 'Microsoft.CognitiveServices/accounts/projects@2025-04-01-preview' existing = {
-  scope: resourceGroup(projectResourceGroup)
+  scope: resourceGroup(aifSubscriptionId, projectResourceGroup)
   name: '${accountName}/${projectName}'
 }
 
